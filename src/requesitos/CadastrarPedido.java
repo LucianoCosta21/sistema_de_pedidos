@@ -17,13 +17,13 @@ public class CadastrarPedido {
 	public static void cadastrarPedido() {
 
 		// double valorTotal = pedido.getValortotal();
-		
+
 		Scanner input = new Scanner(System.in);
 
 		boolean seguir = false;
-		
+
 		do {
-			Cliente cliente = retornoCliente();					
+			Cliente cliente = retornoCliente();
 			System.out.println("""
 
 					Cliente selecionado! Deseja continuar?
@@ -33,18 +33,17 @@ public class CadastrarPedido {
 
 					""");
 			int opcao = input.nextInt();
-			if (opcao == 1) {			
+			if (opcao == 1) {
 				seguir = true;
 			} else {
 				System.out.println("\nInforme um observação: ");
 				String obs = input.next();
 				Pedido pedido = new Pedido(obs, cliente);
 				System.out.println(pedido.toString());
-				seguir = false;				
+				seguir = false;
 			}
 		} while (seguir);
 
-		
 		/*
 		 * String query = "insert into fiscal.pedido(id_cliente, observa) values(" +
 		 * codigo + ", '" + obs + "')"; System.out.println(query);
@@ -52,10 +51,10 @@ public class CadastrarPedido {
 
 		// chaveGerada = PedidoDAO.executarID(query);
 
-		//pedido.setObservacao(obs);
+		// pedido.setObservacao(obs);
 		// pedido.setCodigoCliente(codigo);
 
-		//System.out.println(pedido.toString());
+		// System.out.println(pedido.toString());
 
 		CadastrarPedidoItem.CadastrarItem();
 		System.out.println("chave " + chaveGerada);
@@ -65,7 +64,7 @@ public class CadastrarPedido {
 
 	}
 
-	public static Cliente retornoCliente() {		
+	public static Cliente retornoCliente() {
 		boolean continua = false;
 
 		do {
@@ -112,41 +111,33 @@ public class CadastrarPedido {
 		Scanner input = new Scanner(System.in);
 
 		do {
-			try {
-				int opcao;
-				System.out.println("\nInforme o código do cliente que deseja localizar: ");
-				int codigo = input.nextInt();
-				cliente = ClienteDAO.SelectClienteCodigo(codigo);
+
+			int opcao;
+			System.out.println("\nInforme o código do cliente que deseja localizar: ");
+			int codigo = input.nextInt();
+			cliente = ClienteDAO.SelectClienteCodigo(codigo);
+
+			if (cliente != null) {
 				System.out.println(ClienteDAO.SelectClienteCodigo(codigo));
+				System.out
+						.println("\nDeseja Adicionar esse cliente?\n(1) SIM \n(2) NÃO\n(3) RETORNAR AO MENU PRINCIPAL");
+				opcao = input.nextInt();
 
-				if (cliente != null) {
-					System.out.println(
-							"\nDeseja Adicionar esse cliente?\n(1) SIM \n(2) NÃO\n(3) RETORNAR AO MENU PRINCIPAL");
-					opcao = input.nextInt();
-
-					if (opcao == 1) {
-						return cliente;
-					} else if (opcao == 2) {
-						continua = true;
-					}
-				} else {
+				if (opcao == 1) {
+					return cliente;
+				} else if (opcao == 2) {
+					continua = true;
+				}else if(opcao == 3){
 					Menu.mostrarMenu();
-					continua = false;
 				}
-
-			} catch (InputMismatchException | NullPointerException e) {
-				System.out.println("Cliente não encontrado! Deseja continuar pesquisando? \n(1)SIM \n(2)NÃO ");
-				continua = false;
-			}
-			int opcao = input.nextInt();
-			if (opcao == 1) {
-				CadastrarPedido.ClienteCodigo();
 			} else {
+				System.out.println("Cliente não encontrado!");
 				Menu.mostrarMenu();
+				continua = false;
 			}
 
 		} while (continua);
-		// Mudar return;
+
 		return cliente;
 
 	}
@@ -157,37 +148,29 @@ public class CadastrarPedido {
 		Scanner input = new Scanner(System.in);
 
 		do {
-			try {
-				int opcao;
-				System.out.println("\nInforme o nome do cliente que deseja localizar: ");
-				String nome = input.next();
-				cliente = ClienteDAO.SelectClienteNome(nome);
+
+			int opcao;
+			System.out.println("\nInforme o nome do cliente que deseja localizar: ");
+			String nome = input.next();
+			cliente = ClienteDAO.SelectClienteNome(nome);
+
+			if (cliente != null) {
 				System.out.println(ClienteDAO.SelectClienteNome(nome));
+				System.out
+						.println("\nDeseja Adicionar esse cliente?\n(1) SIM \n(2) NÃO\n(3) RETORNAR AO MENU PRINCIPAL");
+				opcao = input.nextInt();
 
-				if (cliente != null) {
-					System.out.println(
-							"\nDeseja Adicionar esse cliente?\n(1) SIM \n(2) NÃO\n(3) RETORNAR AO MENU PRINCIPAL");
-					opcao = input.nextInt();
-
-					if (opcao == 1) {
-						return cliente;
-					} else if (opcao == 2) {
-						continua = true;
-					}
-				} else {
+				if (opcao == 1) {
+					return cliente;
+				} else if (opcao == 2) {
+					continua = true;
+				}else if(opcao == 3){
 					Menu.mostrarMenu();
-					continua = false;
 				}
-
-			} catch (InputMismatchException | NullPointerException e) {
-				System.out.println("Cliente não encontrado! Continuar pesquisando? \n(1)SIM \n(2)NÃO");
-			}
-			int opcao = input.nextInt();
-
-			if (opcao == 1) {
-				CadastrarPedido.ClienteNome();
 			} else {
+				System.out.println("Cliente não encontrado!");
 				Menu.mostrarMenu();
+				continua = false;
 			}
 
 		} while (continua);
@@ -199,37 +182,30 @@ public class CadastrarPedido {
 		boolean continua = false;
 		Scanner input = new Scanner(System.in);
 		do {
-			try {
-				int opcao;
-				System.out.println("\nInforme o CPF do cliente que deseja localizar: ");
-				String cpf = input.next();
-				cliente = ClienteDAO.SelectClienteCpf(cpf);
+
+			int opcao;
+			System.out.println("\nInforme o CPF do cliente que deseja localizar: ");
+			String cpf = input.next();
+			cliente = ClienteDAO.SelectClienteCpf(cpf);
+
+			if (cliente != null) {
 				System.out.println(ClienteDAO.SelectClienteCpf(cpf));
+				System.out.println("\nDeseja Adicionar esse cliente?\n(1) SIM \n(2) NÃO\n(3) RETORNAR AO MENU PRINCIPAL");
+				opcao = input.nextInt();
 
-				if (cliente != null) {
-					System.out.println(
-							"\nDeseja Adicionar esse cliente?\n(1) SIM \n(2) NÃO\n(3) RETORNAR AO MENU PRINCIPAL");
-					opcao = input.nextInt();
-
-					if (opcao == 1) {
-						return cliente;
-					} else if (opcao == 2) {
-						continua = true;
-					}
-				} else {
+				if (opcao == 1) {
+					return cliente;
+				} else if (opcao == 2) {
+					continua = true;
+				}else if(opcao == 3){
 					Menu.mostrarMenu();
-					continua = false;
 				}
-
-			} catch (InputMismatchException | NullPointerException e) {
-				System.out.println("Cliente não encontrado! Deseja continuar pesquisando? \n(1)SIM \n(2)NÃO");
-			}
-			int opcao = input.nextInt();
-			if (opcao == 1) {
-				CadastrarPedido.ClienteCpf();
 			} else {
+				System.out.println("Cliente não encontrado!");
 				Menu.mostrarMenu();
+				continua = false;
 			}
+
 		} while (continua);
 
 		return cliente;
