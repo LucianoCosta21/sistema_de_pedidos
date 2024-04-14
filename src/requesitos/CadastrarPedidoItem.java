@@ -30,21 +30,19 @@ public class CadastrarPedidoItem {
 
 		do {
 			Produto p = LocalizaProduto();			
-			System.out.println(p.toString());
 			
-			// System.out.println("Cadastro de Produtos");
+			//System.out.println("Cadastro de Produtos");
 			System.out.println("\nInforme a quantidade: ");
 			int quantidade = input.nextInt();
 			System.out.println("\nInforme o valor do desconto: ");
-			double vldesconto = input.nextDouble();
-			double vlunitario = p.getVlvenda();
-			int codigo = p.getIdproduto();
+			double vldesconto = input.nextDouble();			
+			//int codigo = p.getIdproduto();
 			System.out.println("Deseja Adicionar no banco de dados esse produto? (1) SIM | (2) NÃO");
 			opcao = input.nextInt();
 
 			if (opcao == 1) {
 
-				PedidoItem novoItem = new PedidoItem(quantidade, vlunitario, vldesconto, chaveGerada, codigo, p);
+				PedidoItem novoItem = new PedidoItem(quantidade, vldesconto, p, chave);
 				itens.add(novoItem);
 
 			}

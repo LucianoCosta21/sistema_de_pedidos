@@ -2,6 +2,8 @@ package entities;
 
 import java.util.ArrayList;
 
+import requesitos.CadastrarPedido;
+
 
 public class PedidoItem {
 
@@ -10,8 +12,9 @@ public class PedidoItem {
 	protected int qtproduto;
 	protected double  vldesconto;
 	private Produto produto;
-	private int codigoPedido;
-	private int codigoProduto;
+	private CadastrarPedido pedido;
+	
+	
 /*
 	public PedidoItem(int idpedidoitem, double vlunitario, int qtproduto, int vldesconto, Produto produto) {
 		super();
@@ -22,15 +25,15 @@ public class PedidoItem {
 		this.produto = produto;
 	}
 */	
-	public PedidoItem(int qtproduto, double vlunitario, double vldesconto,int codigoPedido,int codigoProduto, Produto produto) {	
-		this.qtproduto = qtproduto;
-		this.vlunitario = vlunitario;		
-		this.vldesconto = vldesconto;
-		this.codigoPedido = codigoPedido;
-		this.codigoProduto = codigoProduto;
+	public PedidoItem(int qtproduto, double vldesconto, Produto produto, CadastrarPedido chave) {	
+		this.qtproduto = qtproduto;			
+		this.vldesconto = vldesconto;			
 		this.produto = produto;
+		this.pedido = chave;
 	}
 	
+	//int chaveGerada = chave.chaveGerada;
+	//String query = "insert into fiscal.pedido_item(quantidade, vlr_uni, vlr_desc, id_pedido, id_produto) values(" + quantidade + "," + vlunitario + ","+ vldesconto + "," + chaveGerada + "," + produto.getIdproduto() + ");";
 		
 	/*
 	@Override
@@ -43,19 +46,18 @@ public class PedidoItem {
 	//String produtoDescricao = (produto != null) ? produto.getDescricao() : "Produto não encontrado";
 	
 	public String toString() {
-	    return "Produto: = " + produto.getDescricao()
+	    return " Produto: = " + produto.getDescricao()
 	    	   + " Quantidade: " + qtproduto 
 	    	   + " Valor Unitário: " + vlunitario 
 	    	   + " Desconto: " + vldesconto
-	    	   + " Código do Produto: " + codigoProduto
+	    	   + " Código do Produto: " + produto.getIdproduto()
 	    	   + " Valor com Desconto: " + valorDesconto() ;
 	}
 
 
 	public PedidoItem() {
 		
-	}
-	
+	}	
 
 	public int getIdpedidoitem() {
 		return idpedidoitem;
@@ -70,7 +72,7 @@ public class PedidoItem {
 	}
 
 	public void setVlunitario(double vlunitario) {
-		this.vlunitario = vlunitario;
+		this.vlunitario = produto.getVlvenda();
 	}
 
 	public int getQtproduto() {
@@ -98,9 +100,21 @@ public class PedidoItem {
 		this.produto = produto;
 	}
 	
+	public CadastrarPedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(CadastrarPedido pedido) {
+		this.pedido = pedido;
+	}
+		
 	//----------------------------------------------------------------------
 	
 	
+	
+
+	
+
 	public double valorDesconto() {
 		return vlunitario * (1-(vldesconto/100));
 	}

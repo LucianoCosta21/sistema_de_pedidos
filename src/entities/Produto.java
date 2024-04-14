@@ -12,7 +12,6 @@ public class Produto {
 	
 	public Produto(int idproduto, String descricao, double vlcusto, double vlvenda, String categoria) {
 		super();
-		this.idproduto = idproduto;
 		this.descricao = descricao;
 		this.vlcusto = vlcusto;
 		this.vlvenda = vlvenda;
