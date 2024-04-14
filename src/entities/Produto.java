@@ -2,11 +2,11 @@ package entities;
 
 public class Produto {
 	
-	protected int idproduto;
-	protected String descricao;
-	protected double vlcusto;
-	protected double vlvenda;
-	protected String categoria;
+	private int idproduto;
+	private String descricao;
+	private double vlcusto;
+	private double vlvenda;
+	private String categoria;
 	
 	
 	
@@ -39,9 +39,11 @@ public class Produto {
 	public String getDescricao() {
 		return descricao;
 	}
+	
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 	public double getVlcusto() {
 		return vlcusto;
 	}

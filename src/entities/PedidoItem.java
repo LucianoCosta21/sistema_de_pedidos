@@ -1,5 +1,8 @@
 package entities;
 
+import java.util.ArrayList;
+
+
 public class PedidoItem {
 
 	protected int idpedidoitem;
@@ -19,12 +22,13 @@ public class PedidoItem {
 		this.produto = produto;
 	}
 */	
-	public PedidoItem(int qtproduto, double vlunitario, double vldesconto,int codigoPedido,int codigoProduto) {	
+	public PedidoItem(int qtproduto, double vlunitario, double vldesconto,int codigoPedido,int codigoProduto, Produto produto) {	
 		this.qtproduto = qtproduto;
 		this.vlunitario = vlunitario;		
 		this.vldesconto = vldesconto;
 		this.codigoPedido = codigoPedido;
 		this.codigoProduto = codigoProduto;
+		this.produto = produto;
 	}
 	
 		
@@ -35,22 +39,23 @@ public class PedidoItem {
 				+ ", vldesconto=" + vldesconto + ", produtos=" + produto.toString() + "]";
 	}
 	*/
+	
+	//String produtoDescricao = (produto != null) ? produto.getDescricao() : "Produto não encontrado";
+	
 	public String toString() {
-	    return "Produto: = CAMISA POLO"  
-	    	   + ", Quantidade: " + qtproduto 
-	    	   + ", Valor Unitário: " + vlunitario 
-	    	   + ", Desconto: " + vldesconto
+	    return "Produto: = " + produto.getDescricao()
+	    	   + " Quantidade: " + qtproduto 
+	    	   + " Valor Unitário: " + vlunitario 
+	    	   + " Desconto: " + vldesconto
 	    	   + " Código do Produto: " + codigoProduto
-	    	   + " Valor com Desconto: " + (vlunitario - (vlunitario * (vldesconto/100))) ;
+	    	   + " Valor com Desconto: " + valorDesconto() ;
 	}
 
 
 	public PedidoItem() {
 		
 	}
-
 	
-
 
 	public int getIdpedidoitem() {
 		return idpedidoitem;
@@ -77,7 +82,6 @@ public class PedidoItem {
 	}
 
 	public double getVldesconto() {
-
 		return vldesconto;
 	}
 
@@ -94,9 +98,15 @@ public class PedidoItem {
 		this.produto = produto;
 	}
 	
-	public double valorTotal() {
-		double total;
-		return  total = vlunitario * qtproduto;
+	//----------------------------------------------------------------------
+	
+	
+	public double valorDesconto() {
+		return vlunitario * (1-(vldesconto/100));
+	}
+	
+	public double valorTotal() {	
+		return  valorDesconto() * qtproduto;
 	}
 
 }

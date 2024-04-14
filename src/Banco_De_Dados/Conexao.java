@@ -188,7 +188,6 @@ public class Conexao {
 	}
 
 
-
 	public static Produto selectUmProduto(String query) {
 		Connection connection = Conexao.conectar();
 		Statement statement = null;

@@ -29,22 +29,22 @@ public class CadastrarPedidoItem {
 		int opcao;
 
 		do {
-			int codigo = LocalizaProduto();
+			Produto p = LocalizaProduto();			
+			System.out.println(p.toString());
+			
 			// System.out.println("Cadastro de Produtos");
 			System.out.println("\nInforme a quantidade: ");
 			int quantidade = input.nextInt();
 			System.out.println("\nInforme o valor do desconto: ");
 			double vldesconto = input.nextDouble();
-
-			String query1 = "select * from fiscal.produtos where id_produto = " + codigo;
-			Produto produto = Conexao.selectUmProduto(query1);
-			double vlunitario = produto.getVlvenda();
-			System.out.println("Deseja Adicionar esse produto? (1) SIM | (2) NÃO");
+			double vlunitario = p.getVlvenda();
+			int codigo = p.getIdproduto();
+			System.out.println("Deseja Adicionar no banco de dados esse produto? (1) SIM | (2) NÃO");
 			opcao = input.nextInt();
 
 			if (opcao == 1) {
 
-				PedidoItem novoItem = new PedidoItem(quantidade, vlunitario, vldesconto, chaveGerada, codigo);
+				PedidoItem novoItem = new PedidoItem(quantidade, vlunitario, vldesconto, chaveGerada, codigo, p);
 				itens.add(novoItem);
 
 			}
@@ -95,12 +95,10 @@ public class CadastrarPedidoItem {
 		 */
 	}
 
-	public static int LocalizaProduto() {
-
-		int idproduto = 0;
+	public static Produto LocalizaProduto() {
+		Produto produto = null;	
 
 		boolean continua = false;
-
 		do {
 
 			try {
@@ -108,27 +106,32 @@ public class CadastrarPedidoItem {
 				Scanner input = new Scanner(System.in);
 				System.out.println("\nInforme o código do produto que deseja localizar: ");
 				int localizarCodigo = input.nextInt();
-				Produto produto = ProdutoDAO.SelectProdutoCodigo(localizarCodigo);
-				idproduto = produto.getIdproduto();
+				produto = ProdutoDAO.SelectProdutoCodigo(localizarCodigo);
 				System.out.println(ProdutoDAO.SelectProdutoCodigo(localizarCodigo));
-				System.out.println("\nDeseja Adicionar esse produto?\n(1) SIM \n(2) NÃO\n(3) RETORNA");
-				opcao = input.nextInt();
+				System.out.println(produto.toString());
 
-				if (opcao == 1) {
-					return idproduto;
-				} else if (opcao == 2) {
-					continua = true;
+				if (produto != null) {
+					//System.out.println("Produto encontrado: " + produto.getDescricao());
+					System.out.println("\nDeseja Adicionar esse produto?\n(1) SIM \n(2) NÃO\n(3) RETORNA");
+					opcao = input.nextInt();
+					
+					if (opcao == 1) {				
+						return produto;
+						
+					} else if (opcao == 2) {
+						continua = true;
+					} 
 				} else {
-
+	                System.out.println("Produto não encontrado.");
+	                continua = true;
 				}
-
 			} catch (InputMismatchException | NullPointerException e) {
 				System.out.println("Entrada inválida!");
 				continua = true;
 			}
 		} while (continua);
-
-		return idproduto;
+		System.out.println(produto.toString());
+		return produto;
 	}
 
 }

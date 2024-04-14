@@ -60,14 +60,14 @@ public class ProdutoDAO {
 	
 	
 	public static Produto executarProduto(String query) {
-		
+		Produto produto = new Produto();
 		Connection connection = Conexao.conectar();
 		Statement statement = null;
 		try {
 			PreparedStatement stmt = connection.prepareStatement(query);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) {
-				Produto produto = new Produto (
+				produto = new Produto (
 						rs.getInt("id_produto"), 
 						rs.getString("descricao"),
 						rs.getDouble("vlr_custo"), 
@@ -93,6 +93,6 @@ public class ProdutoDAO {
 				se.printStackTrace();
 			}
 		}
-		return null;
+		return produto;
 	}
 }

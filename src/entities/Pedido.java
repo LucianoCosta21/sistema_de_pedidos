@@ -137,20 +137,14 @@ public class Pedido {
 		this.itens = itens;
 	}
 
+	//-------------------------------------------------------------------------
+	
 	private void calcularValorTotal() {
-
 		valortotal = 0.0;
 		for (PedidoItem item : itens) {
 			valortotal += item.valorTotal();
 		}
 
 	}
-
-	public void add(Pedido pedido) {
-		// TODO Auto-generated method stub
-
-	}
-
-	
 
 }
