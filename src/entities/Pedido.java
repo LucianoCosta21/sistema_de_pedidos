@@ -44,9 +44,10 @@ public class Pedido {
 
 
 
-	public Pedido(String obs, Cliente cliente) {
+	public Pedido(String obs, Cliente cliente, ArrayList<PedidoItem> itens ) {
 		this.observacao = obs;
 		this.cliente = cliente;
+		this.itens = itens;
 	}
 
 	public int getCodigoCliente() {
@@ -165,11 +166,10 @@ public class Pedido {
 	//-------------------------------------------------------------------------
 	
 	public void calcularValorTotal() {
-		valortotal = 0.0;
-	    if (itens != null) { // Verifica se a lista de itens não é nula
+		valortotal = 0.0;   
 	        for (PedidoItem item : itens) {
 	            valortotal += item.valorTotal();
 	        }
-	    }
+	  
 	}
 }

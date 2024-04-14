@@ -10,6 +10,7 @@ import java.util.List;
 
 import entities.Cliente;
 import entities.Pedido;
+import entities.PedidoItem;
 
 
 public class PedidoDAO {
@@ -118,7 +119,7 @@ public class PedidoDAO {
 		return generatedKey;
 	}
 	
-	public static int insertPedidoTabela(Pedido pedido, Cliente cliente) {
+	public static int insertPedidoTabela(Pedido pedido) {
 		
 		Connection connection = Conexao.conectar();
 		Statement statement = null;
@@ -135,9 +136,16 @@ public class PedidoDAO {
 			 	preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);				
 		        preparedStatement.setDouble(1, pedido.getValortotal());
 		        preparedStatement.setString(2, pedido.getObservacao());
-		        preparedStatement.setInt(3, 22);
+		        preparedStatement.setInt(3, pedido.getCliente().getCodigo());
+		        
+		        
+					System.out.println(pedido.getValortotal());
+					System.out.println(pedido.getObservacao());
+					System.out.println(pedido.getCodigoCliente());
+			
+				
 		        	
-			preparedStatement.execute();				
+			preparedStatement.executeUpdate();				
 			generatedKeys = preparedStatement.getGeneratedKeys();			
 			System.out.println(sql);	
 			if (generatedKeys.next()) {  

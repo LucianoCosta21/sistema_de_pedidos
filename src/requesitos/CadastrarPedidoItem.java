@@ -17,7 +17,7 @@ import entities.Produto;
 
 public class CadastrarPedidoItem {
 
-	public static void CadastrarItem() {
+	public static ArrayList<PedidoItem> CadastrarItem() {
 		Scanner input = new Scanner(System.in);
 
 		ArrayList<PedidoItem> itens = new ArrayList<>();
@@ -72,11 +72,8 @@ public class CadastrarPedidoItem {
 		}
 		
 		
-		Pedido pedido = new Pedido();
-		Cliente cliente = new Cliente();
+			
 		
-		PedidoDAO.insertPedidoTabela(pedido, cliente);
-		System.out.println(pedido.toString());
 
 		// String query = "insert into fiscal.pedido_item(quantidade, vlr_uni, vlr_desc,
 		// id_pedido, id_produto) values(" + quantidade + "," + vlunitario + ","+
@@ -113,6 +110,8 @@ public class CadastrarPedidoItem {
 		 * 
 		 * String retorno = Conexao.executarAll(query);
 		 */
+		
+		return itens;
 	}
 
 	public static Produto LocalizaProduto() {
@@ -120,8 +119,7 @@ public class CadastrarPedidoItem {
 
 		boolean continua = false;
 		do {
-
-			try {
+		try {
 				int opcao;
 				Scanner input = new Scanner(System.in);
 				System.out.println("\nInforme o código do produto que deseja localizar: ");

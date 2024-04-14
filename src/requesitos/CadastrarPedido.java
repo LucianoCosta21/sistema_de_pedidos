@@ -1,5 +1,6 @@
 package requesitos;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -9,18 +10,20 @@ import Banco_De_Dados.PedidoDAO;
 import entities.Cliente;
 import entities.Menu;
 import entities.Pedido;
+import entities.PedidoItem;
 
 public class CadastrarPedido {
 
 	public static int chaveGerada;
 
 	public static void cadastrarPedido() {
-
-		// double valorTotal = pedido.getValortotal();
+		ArrayList<PedidoItem> itens = null;
+	
 
 		Scanner input = new Scanner(System.in);
 
 		boolean seguir = false;
+		Pedido pedido = null;
 
 		do {
 			Cliente cliente = retornoCliente();
@@ -38,29 +41,27 @@ public class CadastrarPedido {
 			} else {
 				System.out.println("\nInforme um observação: ");
 				String obs = input.next();
-				Pedido pedido = new Pedido(obs, cliente);
+				itens = CadastrarPedidoItem.CadastrarItem();
+				System.out.println("chave " + chaveGerada);
+				pedido = new Pedido(obs, cliente, itens);				
 				System.out.println(pedido.toString());
 				seguir = false;
+				
 			}
 		} while (seguir);
 
-		/*
-		 * String query = "insert into fiscal.pedido(id_cliente, observa) values(" +
-		 * codigo + ", '" + obs + "')"; System.out.println(query);
-		 */
-
-		// chaveGerada = PedidoDAO.executarID(query);
-
-		// pedido.setObservacao(obs);
-		// pedido.setCodigoCliente(codigo);
-
-		// System.out.println(pedido.toString());
-
-		CadastrarPedidoItem.CadastrarItem();
-		System.out.println("chave " + chaveGerada);
-
-		// CadastrarPedidoItem.CadastrarItem();
-		// System.out.println("chave "+chaveGerada);
+		
+		
+		PedidoDAO.insertPedidoTabela(pedido);
+		
+		for (PedidoItem item : itens) {
+			//
+			System.out.println(item.toString());
+		}
+		
+		
+		System.out.println(pedido.toString());
+		
 
 	}
 
