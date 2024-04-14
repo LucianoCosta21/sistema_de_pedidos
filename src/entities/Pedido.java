@@ -1,5 +1,6 @@
 package entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,23 +8,28 @@ public class Pedido {
 	// SimpleDateFormat sdf = new
 	// SimpleDateFormat("dd/MM/yyyy");
 	private int id_pedido;
-	private Date dtemissao;
+	private LocalDate dtemissao = LocalDate.now();
 	private Date dtentrega;
 	private double valortotal;
 	private String observacao;
 	private int codigoCliente;
 
+
 	private Cliente cliente;
-	// ArrayList para add os ITENS
-	// UM PEDIDO PODE TER VÁRIOS PEDIDO ITEM
 	private ArrayList<PedidoItem> itens;
 
-	public Pedido(String observacao, int codigoCliente, double valortotal) {
+	public Pedido(String observacao, int codigoCliente, double valortotal, Cliente cliente) {
 		super();
 		this.valortotal = valortotal;
 		this.observacao = observacao;
 		this.codigoCliente = codigoCliente;
+		this.cliente = cliente;
 
+	}
+	
+	public Pedido(String obs, Cliente cliente) {
+		this.observacao = obs;
+		this.cliente = cliente;
 	}
 
 	public int getCodigoCliente() {
@@ -34,9 +40,7 @@ public class Pedido {
 		this.codigoCliente = codigoCliente;
 	}
 
-	public Pedido(int id_pedido) {
-		this.id_pedido = id_pedido;
-	}
+	
 
 	public void imprimirItens() {
 		for (PedidoItem p : itens) {
@@ -79,22 +83,15 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [id_pedido=" + id_pedido + ", dtemissao=" + dtemissao + ", dtentrega=" + dtentrega
-				+ ", valortotal=" + valortotal + ", observacao=" + observacao + ", codigoCliente=" + codigoCliente
-				+ ", cliente=" + cliente + ", itens=" + itens + "]";
+		return "============================\nPedido: \t" + id_pedido + "\nData emissão: \t" + dtemissao +
+				"\nData entrega: \t" + dtentrega+ "\nValor total: \t" + valortotal + "\nObservação: \t" + observacao + 
+				"\nCód. Cliente: \t" + cliente.getCodigo() + "\nCliente: \t" + cliente.getNome() + "\nItens: \t\t" + itens;
 	}
 
 	public void setId_pedido(int id_pedido) {
 		this.id_pedido = id_pedido;
 	}
 
-	public Date getDtemissao() {
-		return dtemissao;
-	}
-
-	public void setDtemissao(Date dtemissao) {
-		this.dtemissao = dtemissao;
-	}
 
 	public Date getDtentrega() {
 		return dtentrega;
@@ -136,6 +133,8 @@ public class Pedido {
 	public void setItens(ArrayList<PedidoItem> itens) {
 		this.itens = itens;
 	}
+	
+	
 
 	//-------------------------------------------------------------------------
 	

@@ -22,47 +22,6 @@ public class PedidoDAO {
 		return executarAll(query);	
   }
 	
-	public static Pedido SelectIdUltimoPedido() {
-		String query = "select max(id_pedido) from fiscal.pedido;";					
-		System.out.println(query);
-		return selectPedido(query);
-	}
-	
-	
-	public static Pedido selectPedido(String query) {
-		Connection connection = Conexao.conectar();
-		Statement statement = null;	
-		try {
-			PreparedStatement stmt = connection.prepareStatement(query);
-			ResultSet rs = stmt.executeQuery();
-			if(rs.next()) {
-				Pedido pedido = new Pedido(
-						rs.getInt("id_pedido"));					
-						//rs.getDate("data_emissao"),
-						//rs.getDate("data_entrega"), 
-						//rs.getDouble("vlr_total"), 
-						//rs.getString("observa"));
-				return pedido;
-			}
-		} catch (SQLException err) {
-			System.out.println("Erro !");
-			err.printStackTrace();
-			return null;
-		} finally {
-
-			try {
-				if (statement != null) {
-					statement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException se) {
-				se.printStackTrace();
-			}
-		}
-		return null;
-	}
 
 	
 	public static String executarAll(String query) {

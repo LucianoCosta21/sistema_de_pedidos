@@ -48,10 +48,11 @@ public class PedidoItem {
 	public String toString() {
 	    return " Produto: = " + produto.getDescricao()
 	    	   + " Quantidade: " + qtproduto 
-	    	   + " Valor Unitário: " + vlunitario 
+	    	   + " Valor Unitário: " + produto.getVlvenda()
 	    	   + " Desconto: " + vldesconto
 	    	   + " Código do Produto: " + produto.getIdproduto()
-	    	   + " Valor com Desconto: " + valorDesconto() ;
+	    	   + " Valor com Desconto: " + valorDesconto()
+	    	   + " Valor total dos Itens: " +  valorTotal();
 	}
 
 
@@ -116,7 +117,7 @@ public class PedidoItem {
 	
 
 	public double valorDesconto() {
-		return vlunitario * (1-(vldesconto/100));
+		return produto.getVlvenda() * (1-(vldesconto/100));
 	}
 	
 	public double valorTotal() {	

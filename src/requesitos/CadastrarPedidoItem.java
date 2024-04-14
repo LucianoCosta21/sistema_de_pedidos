@@ -9,6 +9,7 @@ import Banco_De_Dados.ClienteDAO;
 import Banco_De_Dados.Conexao;
 import Banco_De_Dados.PedidoDAO;
 import Banco_De_Dados.ProdutoDAO;
+import entities.Menu;
 import entities.Pedido;
 import entities.PedidoItem;
 import entities.Produto;
@@ -19,15 +20,15 @@ public class CadastrarPedidoItem {
 		Scanner input = new Scanner(System.in);
 
 		ArrayList<PedidoItem> itens = new ArrayList<>();
-
+		
 		CadastrarPedido chave = new CadastrarPedido();
-		int chaveGerada = chave.chaveGerada;
+		//int chaveGerada = chave.chaveGerada;
 
 		// PedidoDAO.SelectIdUltimoPedido();
 		// ClienteDAO.selectTodosClientes();
 
 		int opcao;
-
+		boolean continua = false;
 		do {
 			Produto p = LocalizaProduto();			
 			
@@ -45,12 +46,25 @@ public class CadastrarPedidoItem {
 				PedidoItem novoItem = new PedidoItem(quantidade, vldesconto, p, chave);
 				itens.add(novoItem);
 
+			
+			}else if (opcao == 2){
+				continua = true;
+			}else {
+				
 			}
-			System.out.println("Deseja Adicionar esse produto? (1) SIM | (2) NÃO");
-
-		} while (opcao != 2);
+			
+			System.out.println("Deseja adicionar mais produtos? \n(1)SIM \n(2)NÃO");
+			int escolha = input.nextInt();
+			if (escolha == 1){
+				continua = true;
+			}else {
+				continua = false;
+			}
+			
+		} while (continua);
 
 		// System.out.println(itens.toString());
+		
 
 		for (PedidoItem item : itens) {
 			System.out.println(item.toString());
@@ -110,7 +124,7 @@ public class CadastrarPedidoItem {
 
 				if (produto != null) {
 					//System.out.println("Produto encontrado: " + produto.getDescricao());
-					System.out.println("\nDeseja Adicionar esse produto?\n(1) SIM \n(2) NÃO\n(3) RETORNA");
+					System.out.println("\nDeseja Adicionar esse produto?\n(1) SIM \n(2) NÃO\n(3) RETORNAR AO MENU PRINCIPAL");
 					opcao = input.nextInt();
 					
 					if (opcao == 1) {				
@@ -120,15 +134,14 @@ public class CadastrarPedidoItem {
 						continua = true;
 					} 
 				} else {
-	                System.out.println("Produto não encontrado.");
-	                continua = true;
+					Menu.mostrarMenu();               
+	                continua=false;
 				}
 			} catch (InputMismatchException | NullPointerException e) {
 				System.out.println("Entrada inválida!");
 				continua = true;
 			}
-		} while (continua);
-		System.out.println(produto.toString());
+		} while (continua);		
 		return produto;
 	}
 
