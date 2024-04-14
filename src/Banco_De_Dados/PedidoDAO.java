@@ -8,20 +8,31 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Cliente;
 import entities.Pedido;
 
 
 public class PedidoDAO {
 	
-
+	/*
 	public static String CriarPedido(int idCliente, String observacao) {	
 		
-		String query = "insert into fiscal.pedido(id_cliente, observacao) values(" + idCliente + ", '%" + observacao + "%');";					
+		String sql= "insert into fiscal.pedido(id_cliente, observacao) values(" + idCliente + ", '%" + observacao + "%');";					
 		System.out.println(query);
 	
 		return executarAll(query);	
   }
 	
+	public static int insertPedido(int idCliente, String observacao) {
+				
+		
+		String sql= "insert into fiscal.pedido(data_emissao, data_entrega,vlr_total, observa,id_cliente) values(?,?,?,?,?);";					
+		System.out.println(query);
+	
+		return insertTabela(query);	
+  }
+	
+	*/
 
 	
 	public static String executarAll(String query) {
@@ -107,5 +118,56 @@ public class PedidoDAO {
 		return generatedKey;
 	}
 	
+	public static int insertPedidoTabela(Pedido pedido, Cliente cliente) {
+		
+		Connection connection = Conexao.conectar();
+		Statement statement = null;
+		ResultSet generatedKeys = null;
+		int generatedKey = -1;
+		
+		String sql= "insert into fiscal.pedido(vlr_total, observa, id_cliente) values(?,?,?);";					
+		
+
+		try {			
+			statement = connection.createStatement();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			
+			 	preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);				
+		        preparedStatement.setDouble(1, pedido.getValortotal());
+		        preparedStatement.setString(2, pedido.getObservacao());
+		        preparedStatement.setInt(3, 22);
+		        	
+			preparedStatement.execute();				
+			generatedKeys = preparedStatement.getGeneratedKeys();			
+			System.out.println(sql);	
+			if (generatedKeys.next()) {  
+	            generatedKey = generatedKeys.getInt(1);
+	            System.out.println("Chave gerada: " + generatedKey);
+	        }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+
+			try {
+				
+				 if (generatedKeys != null) {
+		             generatedKeys.close();
+		            }
+				
+				if (statement != null) {
+					statement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		
+		return generatedKey;
+	}
 	
 }

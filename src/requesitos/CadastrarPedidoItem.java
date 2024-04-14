@@ -9,6 +9,7 @@ import Banco_De_Dados.ClienteDAO;
 import Banco_De_Dados.Conexao;
 import Banco_De_Dados.PedidoDAO;
 import Banco_De_Dados.ProdutoDAO;
+import entities.Cliente;
 import entities.Menu;
 import entities.Pedido;
 import entities.PedidoItem;
@@ -23,7 +24,7 @@ public class CadastrarPedidoItem {
 		
 		CadastrarPedido chave = new CadastrarPedido();
 		//int chaveGerada = chave.chaveGerada;
-
+	
 		// PedidoDAO.SelectIdUltimoPedido();
 		// ClienteDAO.selectTodosClientes();
 
@@ -63,12 +64,19 @@ public class CadastrarPedidoItem {
 			
 		} while (continua);
 
-		// System.out.println(itens.toString());
+		System.out.println(itens.toString());
 		
-
+		
 		for (PedidoItem item : itens) {
 			System.out.println(item.toString());
 		}
+		
+		
+		Pedido pedido = new Pedido();
+		Cliente cliente = new Cliente();
+		
+		PedidoDAO.insertPedidoTabela(pedido, cliente);
+		System.out.println(pedido.toString());
 
 		// String query = "insert into fiscal.pedido_item(quantidade, vlr_uni, vlr_desc,
 		// id_pedido, id_produto) values(" + quantidade + "," + vlunitario + ","+

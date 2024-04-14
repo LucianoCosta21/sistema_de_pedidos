@@ -27,6 +27,23 @@ public class Pedido {
 
 	}
 	
+	
+	
+	public Pedido(int id_pedido, LocalDate dtemissao, Date dtentrega, double valortotal, String observacao,
+			int codigoCliente, Cliente cliente, ArrayList<PedidoItem> itens) {
+		super();
+		this.id_pedido = id_pedido;
+		this.dtemissao = dtemissao;
+		this.dtentrega = dtentrega;
+		this.valortotal = valortotal;
+		this.observacao = observacao;
+		this.codigoCliente = codigoCliente;
+		this.cliente = cliente;
+		this.itens = itens;
+	}
+
+
+
 	public Pedido(String obs, Cliente cliente) {
 		this.observacao = obs;
 		this.cliente = cliente;
@@ -134,16 +151,25 @@ public class Pedido {
 		this.itens = itens;
 	}
 	
+	public LocalDate getDtemissao() {
+		return dtemissao;
+	}
+
+
+
+	public void setDtemissao(LocalDate dtemissao) {
+		this.dtemissao = dtemissao;
+	}
 	
 
 	//-------------------------------------------------------------------------
 	
-	private void calcularValorTotal() {
+	public void calcularValorTotal() {
 		valortotal = 0.0;
-		for (PedidoItem item : itens) {
-			valortotal += item.valorTotal();
-		}
-
+	    if (itens != null) { // Verifica se a lista de itens não é nula
+	        for (PedidoItem item : itens) {
+	            valortotal += item.valorTotal();
+	        }
+	    }
 	}
-
 }
