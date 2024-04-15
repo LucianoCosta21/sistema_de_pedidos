@@ -7,6 +7,7 @@ import java.util.Scanner;
 import Banco_De_Dados.ClienteDAO;
 import Banco_De_Dados.Conexao;
 import Banco_De_Dados.PedidoDAO;
+import Banco_De_Dados.PedidoItemDAO;
 import entities.Cliente;
 import entities.Menu;
 import entities.Pedido;
@@ -18,7 +19,6 @@ public class CadastrarPedido {
 
 	public static void cadastrarPedido() {
 		ArrayList<PedidoItem> itens = null;
-	
 
 		Scanner input = new Scanner(System.in);
 
@@ -34,36 +34,29 @@ public class CadastrarPedido {
 					(1) MUDAR PARA OUTRO CLIENTE
 					(2) CONTINUAR PARA PEDIDO
 
+
 					""");
 			int opcao = input.nextInt();
 			if (opcao == 1) {
 				seguir = true;
-			} else {
+			} else
 				System.out.println("\nInforme um observação: ");
-				String obs = input.next();
-				itens = CadastrarPedidoItem.CadastrarItem();
-				System.out.println("chave " + chaveGerada);
-				pedido = new Pedido(obs, cliente, itens);				
-				System.out.println(pedido.toString());
-				seguir = false;
-				
-			}
+			String obs = input.next();
+			itens = CadastrarPedidoItem.CadastrarItem();			
+			pedido = new Pedido(obs, cliente, itens);
+			seguir = false;
+
 		} while (seguir);
 
-		
-		
-		PedidoDAO.insertPedidoTabela(pedido);
-		
-		for (PedidoItem item : itens) {
-			//
-			System.out.println(item.toString());
-		}
-		
-		
-		System.out.println(pedido.toString());
-		
-
+		chaveGerada = PedidoDAO.insertPedidoTabela(pedido);		
+		 
+		 for (PedidoItem item : itens) {
+			    PedidoItemDAO.insertPedidoItem(item);
+			    System.out.println("\n" + item.toString());
+			}
 	}
+	
+	
 
 	public static Cliente retornoCliente() {
 		boolean continua = false;
@@ -128,7 +121,7 @@ public class CadastrarPedido {
 					return cliente;
 				} else if (opcao == 2) {
 					continua = true;
-				}else if(opcao == 3){
+				} else if (opcao == 3) {
 					Menu.mostrarMenu();
 				}
 			} else {
@@ -165,7 +158,7 @@ public class CadastrarPedido {
 					return cliente;
 				} else if (opcao == 2) {
 					continua = true;
-				}else if(opcao == 3){
+				} else if (opcao == 3) {
 					Menu.mostrarMenu();
 				}
 			} else {
@@ -191,14 +184,15 @@ public class CadastrarPedido {
 
 			if (cliente != null) {
 				System.out.println(ClienteDAO.SelectClienteCpf(cpf));
-				System.out.println("\nDeseja Adicionar esse cliente?\n(1) SIM \n(2) NÃO\n(3) RETORNAR AO MENU PRINCIPAL");
+				System.out
+						.println("\nDeseja Adicionar esse cliente?\n(1) SIM \n(2) NÃO\n(3) RETORNAR AO MENU PRINCIPAL");
 				opcao = input.nextInt();
 
 				if (opcao == 1) {
 					return cliente;
 				} else if (opcao == 2) {
 					continua = true;
-				}else if(opcao == 3){
+				} else if (opcao == 3) {
 					Menu.mostrarMenu();
 				}
 			} else {
@@ -211,7 +205,5 @@ public class CadastrarPedido {
 
 		return cliente;
 	}
-
-	
 
 }

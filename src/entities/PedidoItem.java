@@ -15,16 +15,6 @@ public class PedidoItem {
 	private CadastrarPedido pedido;
 	
 	
-/*
-	public PedidoItem(int idpedidoitem, double vlunitario, int qtproduto, int vldesconto, Produto produto) {
-		super();
-		this.idpedidoitem = idpedidoitem;
-		this.vlunitario = vlunitario;
-		this.qtproduto = qtproduto;
-		this.vldesconto = vldesconto;
-		this.produto = produto;
-	}
-*/	
 	public PedidoItem(int qtproduto, double vldesconto, Produto produto, CadastrarPedido chave) {	
 		this.qtproduto = qtproduto;			
 		this.vldesconto = vldesconto;			
@@ -32,27 +22,14 @@ public class PedidoItem {
 		this.pedido = chave;
 	}
 	
-	//int chaveGerada = chave.chaveGerada;
-	//String query = "insert into fiscal.pedido_item(quantidade, vlr_uni, vlr_desc, id_pedido, id_produto) values(" + quantidade + "," + vlunitario + ","+ vldesconto + "," + chaveGerada + "," + produto.getIdproduto() + ");";
-		
-	/*
-	@Override
-	public String toString() {
-		return "PedidoItem [idpedidoitem=" + idpedidoitem + ", vlunitario=" + vlunitario + ", qtproduto=" + qtproduto
-				+ ", vldesconto=" + vldesconto + ", produtos=" + produto.toString() + "]";
-	}
-	*/
-	
-	//String produtoDescricao = (produto != null) ? produto.getDescricao() : "Produto não encontrado";
-	
 	public String toString() {
 	    return " Produto: = " + produto.getDescricao()
-	    	   + " Quantidade: " + qtproduto 
-	    	   + " Valor Unitário: " + produto.getVlvenda()
-	    	   + " Desconto: " + vldesconto
-	    	   + " Código do Produto: " + produto.getIdproduto()
-	    	   + " Valor com Desconto: " + valorDesconto()
-	    	   + " Valor total dos Itens: " +  valorTotal();
+	    	   + "\n Quantidade: " + qtproduto 
+	    	   + "\n Valor Unitário: " + produto.getVlvenda()
+	    	   + "\n Desconto: " + vldesconto + "%"
+	    	   + "\n Código do Produto: " + produto.getIdproduto()
+	    	   + "\n Valor com Desconto: " + valorDesconto()
+	    	   + "\n Valor total dos Itens: " +  valorTotal();
 	}
 
 
@@ -111,9 +88,6 @@ public class PedidoItem {
 		
 	//----------------------------------------------------------------------
 	
-	
-	
-
 	
 
 	public double valorDesconto() {

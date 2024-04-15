@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Pedido {
-	// SimpleDateFormat sdf = new
-	// SimpleDateFormat("dd/MM/yyyy");
+	
 	private int id_pedido;
 	private LocalDate dtemissao = LocalDate.now();
 	private Date dtentrega;
@@ -86,12 +85,6 @@ public class Pedido {
 	public Pedido() {
 
 	}
-	/*
-	@Override
-	public String toString() {
-		return "Pedido [id_pedido=" + id_pedido + "]";
-	}
-*/
 	
 	
 	
@@ -101,9 +94,8 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "============================\nPedido: \t" + id_pedido + "\nData emissão: \t" + dtemissao +
-				"\nData entrega: \t" + dtentrega+ "\nValor total: \t" + valortotal + "\nObservação: \t" + observacao + 
-				"\nCód. Cliente: \t" + cliente.getCodigo() + "\nCliente: \t" + cliente.getNome() + "\nItens: \t\t" + itens;
+		return "===========================================\n"
+				+ "=== PRODUTOS CADASTRADOS COM SUCESSO ===\n Itens: \n" + itens;
 	}
 
 	public void setId_pedido(int id_pedido) {
