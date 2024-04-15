@@ -36,7 +36,7 @@ public class CadastrarPedidoItem {
 
 			System.out.println("\nInforme a quantidade: ");
 			int quantidade = input.nextInt();
-			System.out.println("\nInforme o valor do desconto: ");
+			System.out.println("\nInforme a porcetagem do desconto: ");
 			double vldesconto = input.nextDouble();
 
 			System.out.println("Deseja Adicionar no banco de dados esse produto? (1) SIM | (2) NÃO");

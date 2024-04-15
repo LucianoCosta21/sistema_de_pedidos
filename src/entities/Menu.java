@@ -122,9 +122,9 @@ public class Menu {
 
 										+ "FROM fiscal.pedido fp JOIN fiscal.cliente fc ON fp.id_cliente = fc.id_cliente "
 
-										+ "RIGHT JOIN fiscal.pedido_item pd_item ON fp.id_pedido = pd_item.id_pedido "
+										+ "LEFT JOIN fiscal.pedido_item pd_item ON fp.id_pedido = pd_item.id_pedido "
 
-										+ "FULL JOIN fiscal.produtos prod ON prod.id_produto = pd_item.id_produto"
+										+ "LEFT JOIN fiscal.produtos prod ON prod.id_produto = pd_item.id_produto"
 
 						);
 
@@ -144,7 +144,7 @@ public class Menu {
 							System.out.println("================= PEDIDO ====================\nNome: \t\t" + nomeCliente
 									+ "\nCPF: \t\t" + cpf + "\nTelefone: \t" + tel + "\nCód Cliente: \t" + idCliente
 									+ "\n\nCód. Pedido: \t" + id + "\nProdutos: \t" + nomeProd + "\nQuantidade: \t"
-									+ qtProd + "\nCategoria: \t" + categoria + "\nDesconto: \tR$" + valorDesc
+									+ qtProd + "\nCategoria: \t" + categoria + "\nDesconto: \t%" + valorDesc
 									+ "\nValor pedido:  " + valorTotal + "\n\nObservação: \t" + observacao + "\n\n");
 
 						}

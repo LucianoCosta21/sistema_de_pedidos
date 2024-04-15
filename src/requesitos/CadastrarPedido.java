@@ -21,12 +21,12 @@ public class CadastrarPedido {
 		ArrayList<PedidoItem> itens = null;
 
 		Scanner input = new Scanner(System.in);
-
-		boolean seguir = false;
+		Cliente cliente = null;
 		Pedido pedido = null;
-
+		boolean seguir = false;
+		
 		do {
-			Cliente cliente = retornoCliente();
+			cliente = retornoCliente();
 			System.out.println("""
 
 					Cliente selecionado! Deseja continuar?
@@ -39,14 +39,61 @@ public class CadastrarPedido {
 			int opcao = input.nextInt();
 			if (opcao == 1) {
 				seguir = true;
-			} else
+			} else {
 				System.out.println("\nInforme um observação: ");
-			String obs = input.next();
-			itens = CadastrarPedidoItem.CadastrarItem();
-			pedido = new Pedido(obs, cliente, itens);
-			seguir = false;
-
+				String obs = input.next();
+				itens = CadastrarPedidoItem.CadastrarItem();
+				pedido = new Pedido(obs, cliente, itens);
+				seguir = false;
+			}
 		} while (seguir);
+		
+		
+		
+		/*
+		Cliente novoCliente = alterarCliente();	
+		pedido.setCliente(novoCliente);
+		//----------------------Alterar cliente--------------------------------//
+		System.out.println("Informe o código do novo cliente: ");		
+		int codigoCliente = input.nextInt();
+		
+		// Verificar se o novo cliente existe
+		Cliente novoCliente = ClienteDAO.SelectClienteCodigo(codigoCliente);
+		if (novoCliente != null) {
+		    // Atribuir o novo cliente ao pedido
+		    pedido.setCliente(novoCliente);
+		    System.out.println("Cliente do pedido alterado com sucesso!");
+		} else {
+		    System.out.println("O cliente com o código informado não existe.");
+		}
+		
+		
+	
+		//----------------------Alterar Produto--------------------------------//
+		System.out.println("Informe o código do produto que deseja alterar");
+		int codigo = input.nextInt();
+		
+		int indiceProduto = -1; // Inicializa como -1 para identificar se a pessoa não foi encontrada
+		for (int i = 0; i < itens.size(); i++) {
+		    if (itens.get(i).getProduto().getIdproduto() == codigo) {	    	
+		    	indiceProduto = i; // Armazena o índice da pessoa encontrada
+		        break; // Sai do loop assim que a pessoa é encontrada
+		    }
+		} 
+				
+		// Se o produto foi encontrado, modifica o código
+		if (indiceProduto != -1) {
+		    System.out.println("Informe o novo código do produto");
+		    int novoCodigo = input.nextInt();
+		    itens.get(indiceProduto).getProduto().setIdproduto(novoCodigo);
+		} else {
+		    System.out.println("Produto não encontrado na lista.");
+		}
+		
+	*/
+		
+		
+		
 
 		boolean produtosCadastrados = true;
 		for (PedidoItem item : itens) {
@@ -61,13 +108,13 @@ public class CadastrarPedido {
 		} else if (!produtosCadastrados) {
 			System.out.println("Pedido não possui produto cadastrado");
 		} else {
-			
+							
 			chaveGerada = PedidoDAO.insertPedidoTabela(pedido);			
 			for (PedidoItem item : itens) {
 				PedidoItemDAO.insertPedidoItem(item);
 				System.out.println("\n" + item.toString());
 			}
-			System.out.println("Pedido cadastrado com sucesso!");
+			System.out.println("\nPedido cadastrado com sucesso!");
 		}
 
 		
@@ -222,4 +269,26 @@ public class CadastrarPedido {
 		return cliente;
 	}
 
+	/*
+	public static Cliente alterarCliente() {
+		
+		Cliente novoCliente = null;		
+		Scanner input = new Scanner(System.in);		
+		System.out.println("Informe o código do novo cliente: ");		
+		int codigoCliente = input.nextInt();
+
+		novoCliente = ClienteDAO.SelectClienteCodigo(codigoCliente);
+		if (novoCliente != null) {	  
+		    System.out.println("Cliente do pedido alterado com sucesso!");
+		} else {
+		    System.out.println("O cliente com o código informado não existe.");
+		}
+		
+		return novoCliente;
+	}
+	
+	public static P alterarProduto() {
+		
+	}
+	*/
 }
