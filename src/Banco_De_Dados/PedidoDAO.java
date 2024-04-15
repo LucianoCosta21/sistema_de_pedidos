@@ -12,37 +12,35 @@ import entities.Cliente;
 import entities.Pedido;
 import entities.PedidoItem;
 
-
 public class PedidoDAO {
-	
+
 	public static String executarAll(String query) {
 		Connection connection = Conexao.conectar();
 		Statement statement = null;
 		ResultSet generatedKeys = null;
-		
 
-		try {			
+		try {
 			statement = connection.createStatement();
 			PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.execute();
-						
-			generatedKeys = preparedStatement.getGeneratedKeys();			
+
+			generatedKeys = preparedStatement.getGeneratedKeys();
 			// fazer verificação de generatedKey > 0
-			if (generatedKeys.next()) {  
-	            int generatedKey = generatedKeys.getInt(1);	            
-	        }
-			
+			if (generatedKeys.next()) {
+				int generatedKey = generatedKeys.getInt(1);
+			}
+
 		} catch (SQLException e) {
 			return "Erro ao executar comando: " + e.getMessage();
 
 		} finally {
 
 			try {
-				
-				 if (generatedKeys != null) {
-		             generatedKeys.close();
-		            }
-				
+
+				if (generatedKeys != null) {
+					generatedKeys.close();
+				}
+
 				if (statement != null) {
 					statement.close();
 				}
@@ -62,29 +60,29 @@ public class PedidoDAO {
 		ResultSet generatedKeys = null;
 		int generatedKey = -1;
 
-		try {			
+		try {
 			statement = connection.createStatement();
 			PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.execute();
-						
-			generatedKeys = preparedStatement.getGeneratedKeys();			
-			
-			if (generatedKeys.next()) {  
-	            generatedKey = generatedKeys.getInt(1);
-	           // System.out.println("Chave gerada: " + generatedKey);
-	        }
-			
+
+			generatedKeys = preparedStatement.getGeneratedKeys();
+
+			if (generatedKeys.next()) {
+				generatedKey = generatedKeys.getInt(1);
+
+			}
+
 		} catch (SQLException e) {
-			//e.printStackTrace();
-			
+			e.printStackTrace();
+
 		} finally {
 
 			try {
-				
-				 if (generatedKeys != null) {
-		             generatedKeys.close();
-		            }
-				
+
+				if (generatedKeys != null) {
+					generatedKeys.close();
+				}
+
 				if (statement != null) {
 					statement.close();
 				}
@@ -92,52 +90,49 @@ public class PedidoDAO {
 					connection.close();
 				}
 			} catch (SQLException se) {
-				//se.printStackTrace();
+				se.printStackTrace();
 			}
 		}
 		return generatedKey;
 	}
-	
+
 	public static int insertPedidoTabela(Pedido pedido) {
-		
+
 		Connection connection = Conexao.conectar();
 		Statement statement = null;
 		ResultSet generatedKeys = null;
 		int generatedKey = -1;
-		
-		String sql= "insert into fiscal.pedido(vlr_total, observa, id_cliente) values(?,?,?);";					
-		
 
-		try {			
+		String sql = "insert into fiscal.pedido(vlr_total, observa, id_cliente) values(?,?,?);";
+
+		try {
 			statement = connection.createStatement();
 			PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			
-			 	preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);				
-		        preparedStatement.setDouble(1, pedido.getValortotal());
-		        preparedStatement.setString(2, pedido.getObservacao());
-		        preparedStatement.setInt(3, pedido.getCliente().getCodigo());
-		        
-		        
-			
-			preparedStatement.executeUpdate();				
-			generatedKeys = preparedStatement.getGeneratedKeys();			
-			//System.out.println(sql);	
-			if (generatedKeys.next()) {  
-	            generatedKey = generatedKeys.getInt(1);
-	          //  System.out.println("Chave gerada: " + generatedKey);
-	        }
-			
+
+			preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.setDouble(1, pedido.getValortotal());
+			preparedStatement.setString(2, pedido.getObservacao());
+			preparedStatement.setInt(3, pedido.getCliente().getCodigo());
+
+			preparedStatement.executeUpdate();
+			generatedKeys = preparedStatement.getGeneratedKeys();
+
+			if (generatedKeys.next()) {
+				generatedKey = generatedKeys.getInt(1);
+
+			}
+
 		} catch (SQLException e) {
-			//e.printStackTrace();
-			
+			e.printStackTrace();
+
 		} finally {
 
 			try {
-				
-				 if (generatedKeys != null) {
-		             generatedKeys.close();
-		            }
-				
+
+				if (generatedKeys != null) {
+					generatedKeys.close();
+				}
+
 				if (statement != null) {
 					statement.close();
 				}
@@ -145,11 +140,11 @@ public class PedidoDAO {
 					connection.close();
 				}
 			} catch (SQLException se) {
-				//se.printStackTrace();
+				se.printStackTrace();
 			}
 		}
-		
+
 		return generatedKey;
 	}
-	
+
 }

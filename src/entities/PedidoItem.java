@@ -25,11 +25,11 @@ public class PedidoItem {
 	public String toString() {
 	    return " Produto: = " + produto.getDescricao()
 	    	   + "\n Quantidade: " + qtproduto 
-	    	   + "\n Valor Unitário: " + produto.getVlvenda()
-	    	   + "\n Desconto: " + vldesconto + "%"
+	    	   + "\n Valor Unitário: " + produto.getVlvenda() +" R$"
+	    	   + "\n Desconto: " + vldesconto + " %"
 	    	   + "\n Código do Produto: " + produto.getIdproduto()
-	    	   + "\n Valor com Desconto: " + valorDesconto()
-	    	   + "\n Valor total dos Itens: " +  valorTotal();
+	    	   + "\n Valor com Desconto: " + valorDesconto() +" R$"
+	    	   + "\n Valor total dos Itens: " +  valorTotal()+" R$";
 	}
 
 

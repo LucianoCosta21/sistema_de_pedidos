@@ -42,21 +42,37 @@ public class CadastrarPedido {
 			} else
 				System.out.println("\nInforme um observação: ");
 			String obs = input.next();
-			itens = CadastrarPedidoItem.CadastrarItem();			
+			itens = CadastrarPedidoItem.CadastrarItem();
 			pedido = new Pedido(obs, cliente, itens);
 			seguir = false;
 
 		} while (seguir);
 
-		chaveGerada = PedidoDAO.insertPedidoTabela(pedido);		
-		 
-		 for (PedidoItem item : itens) {
-			    PedidoItemDAO.insertPedidoItem(item);
-			    System.out.println("\n" + item.toString());
+		boolean produtosCadastrados = true;
+		for (PedidoItem item : itens) {
+			if (item.getProduto().getIdproduto() == 0) {
+				produtosCadastrados = false;
+				break;
 			}
+		}
+
+		if (pedido.getCliente().getCodigo() == 0) {
+			System.out.println("Pedido não possui cliente cadastrado");
+		} else if (!produtosCadastrados) {
+			System.out.println("Pedido não possui produto cadastrado");
+		} else {
+			
+			chaveGerada = PedidoDAO.insertPedidoTabela(pedido);			
+			for (PedidoItem item : itens) {
+				PedidoItemDAO.insertPedidoItem(item);
+				System.out.println("\n" + item.toString());
+			}
+			System.out.println("Pedido cadastrado com sucesso!");
+		}
+
+		
+		Menu.mostrarMenu();
 	}
-	
-	
 
 	public static Cliente retornoCliente() {
 		boolean continua = false;
